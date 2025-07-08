@@ -10,5 +10,25 @@
 <div th:if="${param.registered}" class="success">
     You have been successfully signed up! Please Sign in.
 </div>
+<div th:if="${error}" class="error" th:text="${error}"></div>
+<form th:action="@{/signin}" th:object="${signinDto}" method="post" class="form-container">
+    <p>
+        <label>
+            ID:
+            <input type="text" th:field="*{username}" />
+        </label>
+    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+    </p>
+    <p>
+        <label>
+            Password:
+            <input type="password" th:field="*{password}" />
+        </label>
+    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+    </p>
+    <button type="submit">Sign In</button>
+    <a th:href="@{/signup}" class="cancel">cancel</a>
+</form>
+
 </body>
 </html>
