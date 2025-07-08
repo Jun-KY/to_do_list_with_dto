@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>🔑 Sign In</title>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
+<body>
+<h1>🔑 Sign In</h1>
+<div th:if="${param.registered}" class="success">
+    You have been successfully signed up! Please Sign in.
+</div>
+</body>
+</html>
