@@ -12,5 +12,28 @@
     <a th:href="@{/todos/add}" class="btn"> ➕ Add</a>
     <a th:href="@{/signout}" class="btn cancel">Sign-out</a>
 </p>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Complete</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody th:each="todo: ${todos}">
+        <tr>
+            <td th:text="${todo.id}"></td>
+            <td th:text="${todo.title}"></td>
+            <td th:text="${todo.completed}"></td>
+            <td>
+                <a th:href="@{'/todos/edit/' + ${todo.id}}">Edit</a>
+                <form th:action="@{'/todos/delete/' + ${todo.id}}" method="post" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
 </body>
 </html>
