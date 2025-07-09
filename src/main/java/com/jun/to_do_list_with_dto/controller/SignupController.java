@@ -1,6 +1,6 @@
 package com.jun.to_do_list_with_dto.controller;
 
-import com.jun.to_do_list_with_dto.dto.SignupDTO;
+import com.jun.to_do_list_with_dto.dto.SignupDto;
 import com.jun.to_do_list_with_dto.model.User;
 import com.jun.to_do_list_with_dto.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -18,14 +18,14 @@ public class SignupController {
 
     @GetMapping("/signup")
     public String showSignup(Model model) {
-        model.addAttribute("signupDto", new SignupDTO());
+        model.addAttribute("signupDto", new SignupDto());
 
         return "signup";
     }
 
     @PostMapping("/signup")
     public String doSignup(
-            @Valid @ModelAttribute("signupDto") SignupDTO signupDTO,
+            @Valid @ModelAttribute SignupDto signupDto,
             BindingResult bindingResult,
             Model model
     ) {
@@ -34,11 +34,17 @@ public class SignupController {
         }
         //Double check if it's a multiple signup
 
+        if (userRepository.findByUsername(signupDto.getUsername()) != null){
+            model.addAttribute("error", "ID has been used already");
+
+            return "signup";
+        }
         User user = User.builder()
-                .username(signupDTO.getUsername())
-                .password(signupDTO.getPassword())
+                .username(signupDto.getUsername())
+                .password(signupDto.getPassword())
                 .build();
         userRepository.save(user);
+
         return "redirect:/signin?resistered";
     }
 

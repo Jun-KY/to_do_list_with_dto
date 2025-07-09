@@ -27,7 +27,7 @@ public class SigninController {
 
     @PostMapping("/signin")
     public String doSignin(
-            @Valid @ModelAttribute("signinDto") SigninDto signinDto,
+            @Valid @ModelAttribute SigninDto signinDto,
             BindingResult bindingResult,
             HttpSession httpSession,
             Model model
@@ -43,7 +43,7 @@ public class SigninController {
 
                 return "signin";
             }
-            httpSession.setAttribute("uesr", user);
+            httpSession.setAttribute("user", user);
 
             return "redirect:/todos";
         } catch (Exception e) {
